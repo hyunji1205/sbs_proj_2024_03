@@ -30,6 +30,8 @@ public class Main {
                 // 반복문 빠져나가기
             }
 
+
+
             if ( cmd.equals("article write") ) {
                 int id = lastArticleId + 1;
                 lastArticleId = id;
@@ -58,6 +60,38 @@ public class Main {
 
                     System.out.printf("%d    | %s\n", article.id, article.title);
                 }
+
+            }
+            else if ( cmd.startsWith("article detail ") ) {
+                // startsWith - 초반만 겹친다
+
+                String[] cmdBits = cmd.split(" ");
+                // 문장을 쪼개서 3조각으로 놓는다
+                int id = Integer.parseInt(cmdBits[2]); // "1" -> 1
+                // 문장 1을 숫자 1로 바꿔준다
+
+                Article foundArticle = null;
+
+                for ( int i = 0; i < articles.size(); i++ ) {
+                    // 5
+                    //index - 0, 1, 2, 3, 4
+                    Article article = articles.get(i);
+
+                    if ( article.id == id ) {
+                        foundArticle = article;
+                        break;
+                    }
+                }
+
+                if ( foundArticle == null ) {
+                    System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+                    continue;
+                }
+
+                System.out.printf("번호 : %d\n", foundArticle.id);
+                System.out.printf("날짜 : %s\n", "2024-03-20 12:12:12");
+                System.out.printf("제목 : %s\n", foundArticle.title);
+                System.out.printf("내용 : %s\n", foundArticle.body);
 
             }
 
