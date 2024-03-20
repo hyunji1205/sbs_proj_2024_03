@@ -1,4 +1,7 @@
 package org.example;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +9,10 @@ public class Main {
         System.out.println("== 프로젝트 시작 ==");
         Scanner sc = new Scanner(System.in);
 
+
         int lastArticleId = 0;
+
+        List<Article> articles = new ArrayList<>();
 
         while ( true ) {
             // 무한 반복
@@ -33,12 +39,28 @@ public class Main {
                 System.out.printf("내용: ");
                 String body = sc.nextLine();
 
+                Article article = new Article(id, title, body);
+                // 객체 만들어서 묶어주기
+                articles.add(article);
+
                 System.out.printf("%d번 글이 생성되었습니다.\n", id);
             }
 
             else if ( cmd.equals("article list") ) {
-                System.out.println("게시물이 없습니다.");
+                if ( articles.size() == 0 ) {
+                    System.out.println("게시물이 없습니다.");
+                    continue;
+                }
+
+                System.out.println("번호 | 제목");
+                for ( int i = articles.size() - 1; i >= 0; i-- ) {
+                    Article article = articles.get(i);
+
+                    System.out.printf("%d    | %s\n", article.id, article.title);
+                }
+
             }
+
             else {
                 System.out.printf("%s(은)는 존재하지 않는 명령어입니다.\n", cmd);
             }
@@ -46,5 +68,17 @@ public class Main {
 
         sc.close();
         System.out.println("== 프로젝트 끝 ==");
+    }
+}
+
+class Article {
+    int id;
+    String title;
+    String body;
+
+    public Article(int id, String title, String body) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
     }
 }
