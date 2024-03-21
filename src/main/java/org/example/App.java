@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.dto.Article;
+import org.example.dto.Member;
 import org.example.util.Util;
 
 import java.util.ArrayList;
@@ -8,10 +9,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    private static List<Article> articles;
+    private List<Article> articles;
+    private List<Member> members;
 
-    static {
+    App() {
         articles = new ArrayList<>();
+        members = new ArrayList<>();
+
     }
 
     public void start() {
@@ -36,9 +40,55 @@ public class App {
                 break;
                 // 반복문 빠져나가기
             }
+            if (cmd.equals("member join")) {
+                int id = members.size() + 1;
+
+                String regDate = Util.getNowDateStr();
+
+                String loginId = null;
+
+                while ( true ) {
+                    System.out.printf("로그인 아이디 : ");
+                    loginId = sc.nextLine();
+
+                    if ( isJoinableLoginId(loginId) == false ) {
+                        System.out.printf("%s(은)는 이미 사용중인 아이디 입니다.\n", loginId);
+                        continue;
+                    }
+
+                    break;
+                }
 
 
-            if (cmd.equals("article write")) {
+                String loginPw = null;
+                String loginPwConfirm = null;
+
+                while (true) {
+                    System.out.printf("로그인 비번 : ");
+                    loginPw = sc.nextLine();
+                    System.out.printf("로그인 비번 확인 : ");
+                    loginPwConfirm = sc.nextLine();
+
+                    if ( loginPw.equals(loginPwConfirm) == false ) {
+                        System.out.println("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+                        continue;
+                    }
+
+                    break;
+                }
+
+
+                System.out.printf("이름 : ");
+                String name = sc.nextLine();
+
+                Member member = new Member(id, regDate, loginId, loginPw, name);
+                // 객체 만들어서 묶어주기
+                members.add(member);
+
+                System.out.printf("%d번 회원이 생성되었습니다. 환영합니다!\n", id);
+            }
+
+            else if (cmd.equals("article write")) {
                 int id = articles.size() + 1;
                 // articles.size();
                 // 데이터를 몇개 넣었냐를 반환
@@ -55,6 +105,7 @@ public class App {
 
                 System.out.printf("%d번 글이 생성되었습니다.\n", id);
             }
+
             else if ( cmd.startsWith("article list") ) {
                 if (articles.size() == 0) {
                     System.out.println("게시물이 없습니다.");
@@ -85,8 +136,8 @@ public class App {
 
                     System.out.printf("%4d | %4d | %s\n", article.id, article.hit, article.title);
                 }
-
-            } else if (cmd.startsWith("article detail ")) {
+            }
+            else if (cmd.startsWith("article detail ")) {
                 // startsWith - 초반만 겹친다
 
                 String[] cmdBits = cmd.split(" ");
@@ -109,8 +160,8 @@ public class App {
                 System.out.printf("제목 : %s\n", foundArticle.title);
                 System.out.printf("내용 : %s\n", foundArticle.body);
                 System.out.printf("조회 : %d\n", foundArticle.hit);
-
-            } else if (cmd.startsWith("article modify ")) {
+            }
+            else if (cmd.startsWith("article modify ")) {
                 String[] cmdBits = cmd.split(" ");
                 int id = Integer.parseInt(cmdBits[2]);
 
@@ -131,7 +182,8 @@ public class App {
 
                 System.out.printf("%d번 게시물이 수정되었습니다.\n", id);
 
-            } else if (cmd.startsWith("article delete ")) {
+            }
+            else if (cmd.startsWith("article delete ")) {
                 String[] cmdBits = cmd.split(" ");
                 int id = Integer.parseInt(cmdBits[2]); // "1" -> 1
 
@@ -156,6 +208,25 @@ public class App {
 
         sc.close();
         System.out.println("== 프로젝트 끝 ==");
+    }
+
+    private boolean isJoinableLoginId(String loginId) {
+        int index = getMemberIndexByLoginId(loginId);
+
+        if ( index == -1 ) {
+            return true;
+        }
+        return  false;
+    }
+    private int getMemberIndexByLoginId(String loginId) {
+        int i = 0;
+        for ( Member member : members ) {
+            if ( member.loginId.equals(loginId) ) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
     private int getArticleIndexById(int id) {

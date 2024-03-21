@@ -1,10 +1,7 @@
 package org.example.dto;
 
-public class Article {
+public class Article extends Dto {
 
-    // DTO
-    public int id;
-    public String regDate;
     public String title;
     public String body;
     public int hit;
