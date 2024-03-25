@@ -47,9 +47,6 @@ public class MemberController extends Controller {
                 System.out.println("존재하지 않는 명령어 입니다.");
                 break;
         }
-
-
-
     }
 
 
@@ -97,18 +94,10 @@ public class MemberController extends Controller {
     }
 
     public void doLogin(){
-        if (isLogined()){
-            System.out.printf("이미 %s님이 로그인중 입니다.\n", loginedMember.name);
-            return;
-        }
-
         System.out.printf("Id : ");
         String loginId = sc.nextLine();
         System.out.printf("Pw : ");
         String loginPw = sc.nextLine();
-
-
-
 
         Member member = getMemberByLoginId(loginId);
 
@@ -124,16 +113,10 @@ public class MemberController extends Controller {
         loginedMember = member;
         System.out.printf("%s님 환영합니다.\n", loginedMember.name);
 
-
-
     }
 
 
     private void doLogout() {
-        if ( isLogined()==false){
-            System.out.println("로그인 상태가 아닙니다.");
-            return;
-        }
         loginedMember = null;
         System.out.println("로그아웃 되었습니다.");
     }
