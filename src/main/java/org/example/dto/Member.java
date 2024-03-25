@@ -1,9 +1,9 @@
 package org.example.dto;
 
 public class Member extends Dto {
+
     public String loginId;
     public String loginPw;
-
     public String name;
 
 
@@ -13,5 +13,8 @@ public class Member extends Dto {
         this.loginId = loginId;
         this.loginPw = loginPw;
         this.name = name;
+
+
     }
+
 }
