@@ -18,29 +18,29 @@ public class App {
         articleController.makeTestData();
         memberController.makeTestData();
 
-        while (true) {
-            System.out.printf("명령어입력 : ");
+        while ( true ) {
+            System.out.printf("명령어) ");
             String cmd = sc.nextLine();
             cmd = cmd.trim();
 
-            if (cmd.length() == 0) {
+            if ( cmd.length() == 0 ) {
                 continue;
             }
 
-            if (cmd.equals("exit")) { // 만약 내가 이 단어를 적는다면 멈추게 한다.
+            if ( cmd.equals("exit") ) {
                 break;
             }
 
-            String[] cmdBits = cmd.split(" "); // article write
-            String controllerName = cmdBits[0]; // article
-            String actionMethodName = cmdBits[1];
+            String[] cmdBits = cmd.split(" "); // article write / member join
+            String controllerName = cmdBits[0]; // article / member
+            String actionMethodName = cmdBits[1]; // write / join
 
             Controller controller = null;
 
-            if ( controllerName.equals("article")){
+            if ( controllerName.equals("article") ) {
                 controller = articleController;
             }
-            else if ( controllerName.equals("member")){
+            else if ( controllerName.equals("member") ) {
                 controller = memberController;
             }
             else {
@@ -49,13 +49,12 @@ public class App {
             }
 
             String actionName = controllerName + "/" + actionMethodName;
-            // article/list
 
             switch ( actionName ) {
                 case "article/write":
                 case "article/delete":
                 case "article/modify":
-                case "member/logout":
+                case "memeber/logout":
                     if ( Controller.isLogined() == false ) {
                         System.out.println("로그인 후 이용해주세요.");
                         continue;
@@ -65,7 +64,7 @@ public class App {
 
             switch ( actionName ) {
                 case "member/login":
-                case "member/join":
+                case "memeber/join":
                     if ( Controller.isLogined() ) {
                         System.out.println("로그아웃 후 이용해주세요.");
                         continue;
@@ -77,7 +76,6 @@ public class App {
         }
 
         sc.close();
-        System.out.println("== 업로드 완료 ==");
+        System.out.println("== 프로그램 끝 ==");
     }
-
 }
