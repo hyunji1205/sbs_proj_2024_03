@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.Container;
 import org.example.dto.Article;
 import org.example.dto.Member;
 import org.example.util.Util;
@@ -19,7 +20,7 @@ public class MemberController extends Controller {
 
     public MemberController(Scanner sc) {
         this.sc = sc;
-        members = new ArrayList<>();
+        members = Container.memberDao.members;
     }
     public void makeTestData() {
         System.out.println("테스트를 위한 회원 데이터를 생성합니다");

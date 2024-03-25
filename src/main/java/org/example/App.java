@@ -1,24 +1,12 @@
-package App;
+package org.example;
 
 import org.example.controller.ArticleController;
 import org.example.controller.Controller;
 import org.example.controller.MemberController;
-import org.example.dto.Article;
-import org.example.util.Util;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    private List<Article> articles;
-
-    public App() {
-        articles = new ArrayList<>();
-
-    }
-
     public void start() {
         System.out.println("== 프로그램 시작 ==");
 
