@@ -15,8 +15,6 @@ public class Article extends Dto {
         this.title = title;
         this.body = body;
         this.hit = hit;
-
-
     }
 
     public Article(int id, String regDate, int memberId, String title, String body) {
