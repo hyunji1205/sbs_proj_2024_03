@@ -45,8 +45,6 @@ public class MemberController extends Controller {
 
 
     public void doJoin() {
-        int id = Container.memberDao.getNewId();
-        String regDate = Util.getNowDateStr();
         String loginId = null;
 
         while ( true ) {
@@ -81,10 +79,9 @@ public class MemberController extends Controller {
         System.out.printf("이름 : ");
         String name = sc.nextLine();
 
-        Member member = new Member(id, regDate, loginId, loginPw, name);
-        memberService.join(member);
+        memberService.join(loginId, loginPw, name);
 
-        System.out.printf("%s 회원이 생성되었습니다. 환영합니다!\n", loginId);
+        System.out.printf("[%s]님! 회원가입이 왼료되었습니다! 환영합니다 ^-^!\n", name);
     }
 
     public void doLogin(){
@@ -116,9 +113,9 @@ public class MemberController extends Controller {
     }
 
     private boolean isJoinableLoginId(String loginId) {
-        int index = memberService.getMemberIndexByLoginId(loginId);
+        Member member = memberService.getMemberByLoginId(loginId);
 
-        if ( index == -1 ) {
+        if ( member == null ) {
             return true;
         }
 
