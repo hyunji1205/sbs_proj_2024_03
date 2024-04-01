@@ -14,14 +14,13 @@ public class MemberController extends Controller {
     private String cmd;
     private String actionMethodName;
     private MemberService memberService;
-
-
-
-
+    private Session session;
 
     public MemberController(Scanner sc) {
         this.sc = sc;
+
         memberService = Container.memberService;
+        session = Container.getSession();
     }
     public void makeTestData() {
         System.out.println("테스트를 위한 회원 데이터를 생성합니다");
@@ -112,14 +111,14 @@ public class MemberController extends Controller {
             System.out.println("비밀번호가 일치하지 않습니다.");
             return;
         }
-        loginedMember = member;
-        System.out.printf("%s님 환영합니다.\n", loginedMember.name);
+        session.setLoginedMember(member);
+        Member loginedMember = session.getLoginedMember();
 
+        System.out.printf("%s님 환영합니다.\n", loginedMember.name);
     }
 
-
     private void doLogout() {
-        loginedMember = null;
+        session.setLoginedMember(null);
         System.out.println("로그아웃 되었습니다.");
     }
 
