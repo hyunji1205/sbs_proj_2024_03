@@ -22,13 +22,6 @@ public class MemberController extends Controller {
         memberService = Container.memberService;
         session = Container.getSession();
     }
-    public void makeTestData() {
-        System.out.println("테스트를 위한 회원 데이터를 생성합니다");
-
-        memberService.join(new Member(Container.memberDao.getNewId(), Util.getNowDateStr(), "admin", "admin", "송현지"));
-        memberService.join(new Member(Container.memberDao.getNewId(), Util.getNowDateStr(), "user", "user", "박재민"));
-        memberService.join(new Member(Container.memberDao.getNewId(), Util.getNowDateStr(), "user1", "user1", "송인규"));
-    }
     public void doAction(String cmd, String actionMethodName){
         this.cmd = cmd;
         this.actionMethodName = actionMethodName;
