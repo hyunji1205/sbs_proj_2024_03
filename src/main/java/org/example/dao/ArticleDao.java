@@ -27,7 +27,7 @@ public class ArticleDao extends Dao {
         sb.append(String.format("title = '%s', ", article.title));
         sb.append(String.format("`body` = '%s', ", article.body));
         sb.append(String.format("memberId = %d, ", article.memberId));
-        sb.append(String.format("boardId = %d ", article.boardId));
+        sb.append(String.format("boardId = %d, ", article.boardId));
         sb.append(String.format("hit = %d ", article.hit));
 
         return dbConnection.insert(sb.toString());
@@ -123,6 +123,16 @@ public class ArticleDao extends Dao {
         sb.append(String.format("body = '%s' ", body));
         sb.append(String.format("WHERE id = %d ", id));
         return dbConnection.update(sb.toString());
+
+    }
+
+    public int delete(int id) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("DELETE FROM article "));
+        sb.append(String.format("WHERE id = %d ", id));
+
+        return dbConnection.delete(sb.toString());
 
     }
 }
