@@ -22,9 +22,6 @@ public class ArticleService {
         return articleDao.getForPrintArticles(null);
     }
 
-    public Article getArticleById(int id) {
-        return articleDao.getArticleById(id);
-    }
 
     public void remove(Article foundArticle) {
         articleDao.remove(foundArticle);
@@ -39,6 +36,10 @@ public class ArticleService {
         return articleDao.getArticles();
     }
 
+    public Article getArticle(int id) {
+        return articleDao.getArticle(id);
+    }
+
     public Board getBoard(int id) {
         return articleDao.getBoard(id);
     }
@@ -46,4 +47,10 @@ public class ArticleService {
     public Article getForPrintArticle(int id) {
         return articleDao.getForPrintArticle(id);
     }
+
+    public void modify(int id, String title, String body) {
+        articleDao.modify(id, title, body);
+    }
+
+
 }
