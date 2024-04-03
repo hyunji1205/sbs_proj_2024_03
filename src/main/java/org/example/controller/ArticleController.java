@@ -125,8 +125,11 @@ public class ArticleController extends Controller{
     }
 
     public void showDetail() {
-        String[] cmdBits = cmd.split(" ");
-        int id = Integer.parseInt(cmdBits[2]);
+        int id = checkScNum();
+
+        if ( id == 0 ) {
+            return;
+        }
 
         Article foundArticle = articleService.getForPrintArticle(id);
 
@@ -148,8 +151,11 @@ public class ArticleController extends Controller{
     }
 
     public void doModify() {
-        String[] cmdBits = cmd.split(" ");
-        int id = Integer.parseInt(cmdBits[2]);
+        int id = checkScNum();
+
+        if ( id == 0 ) {
+            return;
+        }
 
         Article foundArticle = articleService.getArticle(id);
 
@@ -176,8 +182,11 @@ public class ArticleController extends Controller{
     }
 
     public void doDelete() {
-        String[] cmdBits = cmd.split(" ");
-        int id = Integer.parseInt(cmdBits[2]);
+        int id = checkScNum();
+
+        if ( id == 0 ) {
+            return;
+        }
 
         Article foundArticle = articleService.getArticle(id);
 
@@ -195,5 +204,20 @@ public class ArticleController extends Controller{
         articleService.delete(foundArticle.id);
 
         System.out.printf("%d번 게시물이 삭제되었습니다.\n", id);
+    }
+    public int checkScNum() {
+        System.out.print("게시물 번호를 입력하세요) ");
+
+        int id = 0;
+
+        try {
+            id = sc.nextInt();
+            sc.nextLine();
+        } catch ( InputMismatchException e ) {
+            System.out.println("잘못 입력하셨습니다.");
+            sc.nextLine();
+            return 0;
+        }
+        return id;
     }
 }
