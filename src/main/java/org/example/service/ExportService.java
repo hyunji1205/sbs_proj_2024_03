@@ -16,7 +16,7 @@ public class ExportService {
         memberService = Container.memberService;
     }
     public void makeHtml() {
-       List<Article> articles = articleService.getForPrintArticles();
+       List<Article> articles = articleService.getArticles();
 
        for ( Article article : articles ) {
            Member member = memberService.getMember(article.memberId);

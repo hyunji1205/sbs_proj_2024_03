@@ -66,7 +66,7 @@ public class App {
                 controller = articleController;
             }
             else if ( controllerName.equals("member") ) {
-                controller = memberController;
+                 controller = memberController;
             }
             else if ( controllerName.equals("export") ) {
                 controller = exportController;
