@@ -9,6 +9,7 @@ import org.example.service.MemberService;
 import org.example.util.Util;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,8 +59,20 @@ public class ArticleController extends Controller{
     }
 
     private void doChangeBoard() {
-        String[] cmdBits = cmd.split(" ");
-        int boardId = Integer.parseInt(cmdBits[2]);
+        System.out.println("1. 공지 게시판");
+        System.out.println("2. 자유 게시판");
+        System.out.print("게시판 번호를 입력하세요) ");
+
+        int boardId = 0;
+
+        try {
+            boardId = sc.nextInt();
+            sc.nextLine();
+        } catch ( InputMismatchException e ) {
+            System.out.println("잘못 입력하셨습니다.");
+            sc.nextLine();
+            return;
+        }
 
         Board board = articleService.getBoard(boardId);
 
